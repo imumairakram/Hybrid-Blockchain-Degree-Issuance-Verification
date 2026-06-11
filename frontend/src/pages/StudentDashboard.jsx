@@ -272,7 +272,7 @@ export const StudentDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Matriculation Marksheet (Min 60% Required)</label>
+                <label className="form-label">Matriculation Marksheet (Min 50% Required)</label>
                 <div className="file-upload-zone" style={{ padding: '12px' }}>
                   <UploadCloud size={20} color="#9ca3af" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
                   <span style={{ fontSize: '0.85rem', color: '#9ca3af' }}>
@@ -289,7 +289,7 @@ export const StudentDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Intermediate Marksheet (Min 60% Required)</label>
+                <label className="form-label">Intermediate Marksheet (Min 50% Required)</label>
                 <div className="file-upload-zone" style={{ padding: '12px' }}>
                   <UploadCloud size={20} color="#9ca3af" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
                   <span style={{ fontSize: '0.85rem', color: '#9ca3af' }}>

@@ -119,18 +119,18 @@ const runPolicyChecks = (applicationData) => {
     flags.rejectionReason += 'CNIC is expired or expiration date could not be verified. ';
   }
 
-  // 2. Matric percentage check (Min 60%)
-  if (ocrData.matricPercentage && ocrData.matricPercentage >= 60) {
+  // 2. Matric percentage check (Min 50%)
+  if (ocrData.matricPercentage && ocrData.matricPercentage >= 50) {
     flags.matricValid = true;
   } else {
-    flags.rejectionReason += `Matric percentage of ${ocrData.matricPercentage || 0}% is below the 60% requirement. `;
+    flags.rejectionReason += `Matric percentage of ${ocrData.matricPercentage || 0}% is below the 50% requirement. `;
   }
 
-  // 3. Intermediate percentage check (Min 60%)
-  if (ocrData.interPercentage && ocrData.interPercentage >= 60) {
+  // 3. Intermediate percentage check (Min 50%)
+  if (ocrData.interPercentage && ocrData.interPercentage >= 50) {
     flags.interValid = true;
   } else {
-    flags.rejectionReason += `Intermediate percentage of ${ocrData.interPercentage || 0}% is below the 60% requirement. `;
+    flags.rejectionReason += `Intermediate percentage of ${ocrData.interPercentage || 0}% is below the 50% requirement. `;
   }
 
   // 4. Payment Receipt Verification

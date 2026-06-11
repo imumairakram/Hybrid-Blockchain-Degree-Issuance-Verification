@@ -297,13 +297,13 @@ export const AdminDashboard = () => {
                           <span style={{ color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}><XCircle size={14} /> Failed</span>}
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
-                        <span>Matric Grade Flag (Min 60%):</span>
+                        <span>Matric Grade Flag (Min 50%):</span>
                         {selectedApp.verificationFlags?.matricValid ? 
                           <span style={{ color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}><Check size={14} /> Passed</span> : 
                           <span style={{ color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}><XCircle size={14} /> Failed</span>}
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
-                        <span>Intermediate Grade Flag (Min 60%):</span>
+                        <span>Intermediate Grade Flag (Min 50%):</span>
                         {selectedApp.verificationFlags?.interValid ? 
                           <span style={{ color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}><Check size={14} /> Passed</span> : 
                           <span style={{ color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}><XCircle size={14} /> Failed</span>}

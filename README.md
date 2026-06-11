@@ -15,8 +15,8 @@ A premium, state-of-the-art Web3 and AI-driven degree auditing, issuance, and ve
 *   **Restricted Academic Authentication:** Secure user signup and login restricted exclusively to `@iqra.edu.pk` email domains.
 *   **AI-Driven OCR Audit Agent:** Automatic background extraction of CNIC expiry, matriculation/intermediate percentages, and payment transaction receipts using **Gemini 1.5 Flash**.
 *   **Academic Policy Engine:** Hardcoded university guidelines audit check:
-    *   Matriculation grades $\ge 60\%$
-    *   Intermediate grades $\ge 60\%$
+    *   Matriculation grades $\ge 50\%$
+    *   Intermediate grades $\ge 50\%$
     *   Unexpired CNIC validation check
     *   Payment transaction matching check (amount and reference hash)
 *   **Hybrid Blockchain Ledger Model:**
@@ -136,7 +136,7 @@ Hybrid-Blockchain-Degree-Issuance-Verification/
 If a `GEMINI_API_KEY` is not present, the system activates a deterministic **Simulated OCR Agent**. You can test full academic policy validations by naming your upload files with specific tags:
 
 *   **CNIC Expiry Check:** Name front CNIC image with `expired` in filename (e.g., `cnic_expired.jpg`) to trigger a **CNIC Expiry** rejection.
-*   **Grade Threshold Check:** Name matric/inter marksheets with `fail` or `low` in filename (e.g., `inter_fail.jpg`) to trigger a **Grades below 60%** rejection.
+*   **Grade Threshold Check:** Name matric/inter marksheets with `fail` or `low` in filename (e.g., `inter_fail.jpg`) to trigger a **Grades below 50%** rejection.
 *   **Payment Discrepancy Check:** Name receipt image with `mismatch` in filename (e.g., `receipt_mismatch.jpg`) to trigger a **Payment verification mismatch** rejection.
 
 ### Test User Accounts:
