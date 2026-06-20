@@ -13,7 +13,17 @@ exports.getApplications = async (req, res) => {
   try {
     const applications = await Application.find()
       .populate('student', 'name email')
-      .sort('-createdAt');
+      .sort('-createdAt')
+      .lean();
+      
+    for (let i = 0; i < applications.length; i++) {
+      if (applications[i].status === 'approved') {
+        const degree = await Degree.findOne({ application: applications[i]._id });
+        if (degree) {
+          applications[i].pdfUrl = degree.pdfUrl;
+        }
+      }
+    }
       
     res.status(200).json({
       success: true,
@@ -31,10 +41,18 @@ exports.getApplications = async (req, res) => {
 exports.getApplicationById = async (req, res) => {
   try {
     const application = await Application.findById(req.params.id)
-      .populate('student', 'name email');
+      .populate('student', 'name email')
+      .lean();
       
     if (!application) {
       return res.status(404).json({ success: false, message: 'Application not found' });
+    }
+
+    if (application.status === 'approved') {
+      const degree = await Degree.findOne({ application: application._id });
+      if (degree) {
+        application.pdfUrl = degree.pdfUrl;
+      }
     }
 
     res.status(200).json({

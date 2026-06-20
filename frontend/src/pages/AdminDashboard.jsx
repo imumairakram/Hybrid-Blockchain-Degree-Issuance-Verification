@@ -426,19 +426,9 @@ export const AdminDashboard = () => {
                   
                   {/* Fetch corresponding degree details if needed or direct pdf */}
                   <a 
-                    href={`http://localhost:5000/uploads/degrees/degree-${selectedApp.rollNumber}.pdf`}
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      try {
-                        const detailRes = await api.admin.getApplicationById(selectedApp._id);
-                        // Open static file
-                        window.open(`http://localhost:5000/uploads/degrees/degree-${selectedApp.rollNumber}.pdf`);
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
+                    href={selectedApp.pdfUrl ? `http://localhost:5000${selectedApp.pdfUrl}` : '#'}
                     className="btn btn-success" 
-                    style={{ alignSelf: 'flex-start', fontSize: '0.85rem', padding: '8px 16px', gap: '6px' }}
+                    style={{ alignSelf: 'flex-start', fontSize: '0.85rem', padding: '8px 16px', gap: '6px', textDecoration: 'none' }}
                     target="_blank"
                     rel="noreferrer"
                   >
