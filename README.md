@@ -114,7 +114,22 @@ Hybrid-Blockchain-Degree-Issuance-Verification/
     npm run dev
     ```
 
-### 2. Setup Frontend
+### 3. Blockchain Setup & CLI Simulation
+1. Compile the Solidity smart contracts:
+   ```bash
+   npx hardhat compile
+   ```
+2. Start the local private Ethereum blockchain network node (keep this terminal running):
+   ```bash
+   npx hardhat node
+   ```
+3. Open a separate terminal and run the automated seed and test simulation script:
+   ```bash
+   node blockchain/simulation_scenario.js
+   ```
+   *(This script will deploy the contract, register University, Student, and Employer roles on-chain, issue 5 digital degrees, run 3 verification queries, simulate 2 fraud attempts, and print a performance metrics summary).*
+
+### 4. Setup Frontend
 1.  Navigate into `/frontend`:
     ```bash
     cd frontend

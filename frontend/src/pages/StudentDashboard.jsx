@@ -156,16 +156,16 @@ export const StudentDashboard = () => {
           </h2>
 
           {formError && (
-            <div className="glass-panel" style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '12px 16px', borderColor: 'rgba(239, 68, 68, 0.2)', backgroundColor: 'rgba(239, 68, 68, 0.05)', borderRadius: '8px', marginBottom: '20px' }}>
-              <AlertCircle color="#ef4444" size={20} style={{ flexShrink: 0 }} />
-              <span style={{ color: '#fca5a5', fontSize: '0.85rem' }}>{formError}</span>
+            <div className="alert-danger" style={{ marginBottom: '20px' }}>
+              <AlertCircle size={20} style={{ flexShrink: 0 }} />
+              <span>{formError}</span>
             </div>
           )}
 
           {formSuccess && (
-            <div className="glass-panel" style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '12px 16px', borderColor: 'rgba(16, 185, 129, 0.2)', backgroundColor: 'rgba(16, 185, 129, 0.05)', borderRadius: '8px', marginBottom: '20px' }}>
-              <CheckCircle2 color="#10b981" size={20} style={{ flexShrink: 0 }} />
-              <span style={{ color: '#a7f3d0', fontSize: '0.85rem' }}>{formSuccess}</span>
+            <div className="alert-success" style={{ marginBottom: '20px' }}>
+              <CheckCircle2 size={20} style={{ flexShrink: 0 }} />
+              <span>{formSuccess}</span>
             </div>
           )}
 
@@ -419,7 +419,7 @@ export const StudentDashboard = () => {
                     </div>
 
                     {app.status === 'rejected' && app.verificationFlags?.rejectionReason && (
-                      <div style={{ borderLeft: '3px solid #ef4444', padding: '8px 12px', background: 'rgba(239, 68, 68, 0.05)', fontSize: '0.85rem', color: '#fca5a5' }}>
+                      <div className="alert-danger" style={{ padding: '10px 14px', fontSize: '0.85rem' }}>
                         <strong>Rejection Reason:</strong> {app.verificationFlags.rejectionReason}
                       </div>
                     )}

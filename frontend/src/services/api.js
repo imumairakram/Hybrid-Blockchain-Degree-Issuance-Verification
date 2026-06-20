@@ -103,6 +103,13 @@ export const api = {
         body: JSON.stringify({ rejectionReason })
       });
       return await res.json();
+    },
+    getMetrics: async () => {
+      const res = await fetch(`${API_BASE_URL}/admin/metrics`, {
+        method: 'GET',
+        headers: getHeaders()
+      });
+      return await res.json();
     }
   },
 

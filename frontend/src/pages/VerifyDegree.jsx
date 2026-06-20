@@ -49,18 +49,18 @@ export const VerifyDegree = () => {
         </div>
       ) : error ? (
         /* Failure Screen */
-        <div className="glass-panel verification-card" style={{ borderColor: 'rgba(239, 68, 68, 0.3)', width: '100%', maxWidth: '640px' }}>
+        <div className="glass-panel verification-card" style={{ borderColor: 'var(--color-error)', width: '100%', maxWidth: '640px' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-            <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '20px', borderRadius: '50%', color: '#ef4444' }}>
+            <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '20px', borderRadius: '50%', color: 'var(--color-error)' }}>
               <ShieldAlert size={48} />
             </div>
           </div>
-          <h2 style={{ fontSize: '1.8rem', color: '#ef4444', marginBottom: '12px' }}>Verification Failed</h2>
-          <p style={{ color: '#fca5a5', fontSize: '0.95rem', marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '1.8rem', color: 'var(--color-error)', marginBottom: '12px' }}>Verification Failed</h2>
+          <div className="alert-danger" style={{ marginBottom: '24px', justifyContent: 'center' }}>
             {error}
-          </p>
+          </div>
           <div className="glass-card" style={{ textAlign: 'left', background: 'rgba(239, 68, 68, 0.02)', borderColor: 'rgba(239, 68, 68, 0.1)' }}>
-            <p style={{ fontSize: '0.8rem', color: '#9ca3af', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
               <strong>Security Alert:</strong> The signature hash could not be located in the public blockchain directory. The certificate might be counterfeit, altered, or unregistered. Do not trust this certificate.
             </p>
           </div>
@@ -71,13 +71,13 @@ export const VerifyDegree = () => {
           
           {/* Status Indicator */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-            <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '20px', borderRadius: '50%', color: '#10b981' }}>
+            <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '20px', borderRadius: '50%', color: 'var(--color-success)' }}>
               <ShieldCheck size={52} />
             </div>
           </div>
 
           <h2 className="gradient-text-gold" style={{ fontSize: '2.2rem', marginBottom: '8px' }}>Degree Verified Authentic</h2>
-          <p style={{ color: '#10b981', fontWeight: 600, fontSize: '0.95rem', marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+          <p style={{ color: 'var(--color-success)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
             <CheckCircle size={16} /> Cryptographic Proof Located on Public Ledger
           </p>
 

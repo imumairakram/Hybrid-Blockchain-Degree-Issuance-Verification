@@ -4,6 +4,7 @@ const { computeDegreeHash, recordOnPrivateBlockchain, publishHashToPublicBlockch
 const { generateDegreePDF } = require('../services/pdfService');
 const { performOCR, runPolicyChecks } = require('../services/ocrService');
 const path = require('path');
+const { generateMetrics } = require('../blockchain/report_generator');
 
 // @desc    Get all applications
 // @route   GET /api/admin/applications
@@ -139,7 +140,7 @@ exports.approveApplication = async (req, res) => {
     });
 
     // 5. Publish Degree Hash onto the Public Blockchain
-    const publicBlockchainResult = await publishHashToPublicBlockchain(degreeHash);
+    const publicBlockchainResult = await publishHashToPublicBlockchain(degreeHash, degreeDetails);
 
     // 6. Create the Degree object
     const degree = new Degree({
@@ -202,6 +203,21 @@ exports.rejectApplication = async (req, res) => {
       success: true,
       message: 'Application successfully rejected',
       data: app
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get system auditing and metrics dashboard reporting data
+// @route   GET /api/admin/metrics
+// @access  Private (Admin)
+exports.getAuditMetrics = async (req, res) => {
+  try {
+    const metrics = await generateMetrics();
+    res.status(200).json({
+      success: true,
+      data: metrics
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

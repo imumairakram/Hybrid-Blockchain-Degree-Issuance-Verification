@@ -16,9 +16,27 @@ export const AdminDashboard = () => {
   const [actionLoading, setActionLoading] = useState(false);
   const [actionMessage, setActionMessage] = useState({ type: '', text: '' });
 
+  // Metrics reporting state
+  const [metrics, setMetrics] = useState({
+    summary: { totalDegreesIssued: 0, totalVerificationRequests: 0, fraudAttemptsBlocked: 0 },
+    performance: { averageIssuanceTimeMs: 0, averageVerificationTimeMs: 0, averageFraudDetectionTimeMs: 0 }
+  });
+
   useEffect(() => {
     fetchApplications();
+    fetchMetrics();
   }, []);
+
+  const fetchMetrics = async () => {
+    try {
+      const res = await api.admin.getMetrics();
+      if (res.success && res.data) {
+        setMetrics(res.data);
+      }
+    } catch (err) {
+      console.error('Error fetching reporting metrics:', err);
+    }
+  };
 
   const fetchApplications = async (selectId = null) => {
     try {
@@ -87,6 +105,7 @@ export const AdminDashboard = () => {
       if (res.success) {
         setActionMessage({ type: 'success', text: 'Degree successfully compiled, secured on Private Ledger and Hash published on Public Blockchain!' });
         fetchApplications(selectedApp._id);
+        fetchMetrics();
       } else {
         setActionMessage({ type: 'error', text: res.message || 'Approval process failed.' });
       }
@@ -111,6 +130,7 @@ export const AdminDashboard = () => {
         setActionMessage({ type: 'success', text: 'Application rejected.' });
         setRejectionReason('');
         fetchApplications(selectedApp._id);
+        fetchMetrics();
       } else {
         setActionMessage({ type: 'error', text: res.message || 'Rejection failed.' });
       }
@@ -135,6 +155,67 @@ export const AdminDashboard = () => {
       <div style={{ marginBottom: '32px' }}>
         <h1 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Registrar Admin Dashboard</h1>
         <p style={{ color: '#9ca3af' }}>Audit student credentials, examine AI OCR analysis, verify receipts, and register degrees to blockchain.</p>
+      </div>
+
+      {/* Statistics Section */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
+        gap: '20px', 
+        marginBottom: '32px' 
+      }}>
+        {/* Metric 1 */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(99, 102, 241, 0.1)', color: '#6366f1' }}>
+            <Award size={28} />
+          </div>
+          <div>
+            <p style={{ color: '#9ca3af', fontSize: '0.85rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Degrees Issued</p>
+            <h3 style={{ fontSize: '1.8rem', margin: '4px 0 0', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+              {metrics.summary?.totalDegreesIssued || 0}
+            </h3>
+          </div>
+        </div>
+
+        {/* Metric 2 */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>
+            <CheckCircle2 size={28} />
+          </div>
+          <div>
+            <p style={{ color: '#9ca3af', fontSize: '0.85rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification Queries</p>
+            <h3 style={{ fontSize: '1.8rem', margin: '4px 0 0', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+              {metrics.summary?.totalVerificationRequests || 0}
+            </h3>
+          </div>
+        </div>
+
+        {/* Metric 3 */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px', borderColor: 'rgba(239, 68, 68, 0.2)' }}>
+          <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>
+            <ShieldAlert size={28} />
+          </div>
+          <div>
+            <p style={{ color: '#9ca3af', fontSize: '0.85rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Fraud Blocked</p>
+            <h3 style={{ fontSize: '1.8rem', margin: '4px 0 0', fontWeight: 'bold', color: '#ef4444' }}>
+              {metrics.summary?.fraudAttemptsBlocked || 0}
+            </h3>
+          </div>
+        </div>
+
+        {/* Metric 4 */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' }}>
+            <RefreshCw size={28} />
+          </div>
+          <div>
+            <p style={{ color: '#9ca3af', fontSize: '0.85rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg Transaction Latency</p>
+            <h4 style={{ fontSize: '0.9rem', margin: '4px 0 0', color: 'var(--text-primary)', lineHeight: '1.4' }}>
+              Attest: <strong style={{ color: '#6366f1' }}>{metrics.performance?.averageIssuanceTimeMs || 0}ms</strong><br/>
+              Verify: <strong style={{ color: '#10b981' }}>{metrics.performance?.averageVerificationTimeMs || 0}ms</strong>
+            </h4>
+          </div>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
@@ -225,14 +306,9 @@ export const AdminDashboard = () => {
 
               {/* Status Message */}
               {actionMessage.text && (
-                <div className="glass-panel" style={{ 
-                  display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', 
-                  borderColor: actionMessage.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)', 
-                  backgroundColor: actionMessage.type === 'success' ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)', 
-                  borderRadius: '8px' 
-                }}>
-                  {actionMessage.type === 'success' ? <CheckCircle2 color="#10b981" /> : <AlertCircle color="#ef4444" />}
-                  <span style={{ color: actionMessage.type === 'success' ? '#a7f3d0' : '#fca5a5', fontSize: '0.9rem' }}>{actionMessage.text}</span>
+                <div className={actionMessage.type === 'success' ? 'alert-success' : 'alert-danger'}>
+                  {actionMessage.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+                  <span>{actionMessage.text}</span>
                 </div>
               )}
 
