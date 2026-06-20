@@ -1,4 +1,5 @@
 const Application = require('../models/application');
+const Degree = require('../models/degree');
 const { performOCR, runPolicyChecks } = require('../services/ocrService');
 const path = require('path');
 
@@ -66,7 +67,19 @@ exports.submitApplication = async (req, res) => {
 // @access  Private (Student)
 exports.getMyApplications = async (req, res) => {
   try {
-    const applications = await Application.find({ student: req.user.id }).sort('-createdAt');
+    const applications = await Application.find({ student: req.user.id }).sort('-createdAt').lean();
+    
+    // For each approved application, append the corresponding degree's pdfUrl
+    for (let i = 0; i < applications.length; i++) {
+      if (applications[i].status === 'approved') {
+        const degree = await Degree.findOne({ application: applications[i]._id });
+        if (degree) {
+          applications[i].pdfUrl = degree.pdfUrl;
+          applications[i].degreeHash = degree.degreeHash;
+        }
+      }
+    }
+
     res.status(200).json({
       success: true,
       count: applications.length,

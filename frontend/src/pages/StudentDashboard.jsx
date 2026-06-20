@@ -426,22 +426,8 @@ export const StudentDashboard = () => {
 
                     {app.status === 'approved' && (
                       <div style={{ marginTop: '8px' }}>
-                        {/* We fetch the degree corresponding to this application */}
                         <a 
-                          href={`http://localhost:5000/api/admin/applications/${app._id}`} // Let admin details fetch it, or direct download link
-                          onClick={async (e) => {
-                            e.preventDefault();
-                            try {
-                              const detailRes = await api.admin.getApplicationById(app._id);
-                              // Lookup corresponding degree hash
-                              if (detailRes.success) {
-                                // Direct redirect or search
-                                window.open(`http://localhost:5000/uploads/degrees/degree-${app.rollNumber}.pdf`); // path format or we search
-                              }
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
+                          href={app.pdfUrl ? `http://localhost:5000${app.pdfUrl}` : '#'}
                           className="btn btn-success" 
                           style={{ fontSize: '0.85rem', padding: '8px 16px', textDecoration: 'none' }}
                           target="_blank"
