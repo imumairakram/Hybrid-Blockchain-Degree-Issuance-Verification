@@ -160,6 +160,13 @@ If a `GEMINI_API_KEY` is not present, the system activates a deterministic **Sim
 
 ---
 
+## 🚀 Recent Upgrades
+*   **Dual Theme Support (Light/Dark Mode)**: Added a premium Sun/Moon switcher on all views (guest and authenticated) with body theme toggling and localStorage persistence.
+*   **Live Metrics Engine**: Interactive glassmorphic stats cards reporting real-time totals, verification queries, fraud attempts, and latency.
+*   **Robust Access & Downloads**: Fixed student PDF retrieval to pull directly from the DB Degree mappings, avoiding unauthorized endpoints.
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
