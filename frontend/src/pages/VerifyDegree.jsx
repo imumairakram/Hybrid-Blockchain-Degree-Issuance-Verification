@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { api } from '../services/api';
+import { api, FILE_BASE_URL } from '../services/api';
 import { 
   ShieldCheck, ShieldAlert, Award, FileText, Download, Calendar, Cpu, Hash, CheckCircle, Database 
 } from 'lucide-react';
@@ -36,7 +36,7 @@ export const VerifyDegree = () => {
   };
 
   const getPDFUrl = (relativePath) => {
-    return `http://localhost:5000${relativePath}`;
+    return `${FILE_BASE_URL}${relativePath}`;
   };
 
   return (

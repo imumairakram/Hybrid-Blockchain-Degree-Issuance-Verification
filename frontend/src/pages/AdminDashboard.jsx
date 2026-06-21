@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { api, FILE_BASE_URL } from '../services/api';
 import { 
   Users, CheckCircle2, XCircle, AlertCircle, FileText, RefreshCw, Award, ShieldAlert, Check, Search, Download
 } from 'lucide-react';
@@ -147,7 +147,7 @@ export const AdminDashboard = () => {
   });
 
   const getDocUrl = (relativePath) => {
-    return `http://localhost:5000${relativePath}`;
+    return `${FILE_BASE_URL}${relativePath}`;
   };
 
   return (
@@ -426,7 +426,7 @@ export const AdminDashboard = () => {
                   
                   {/* Fetch corresponding degree details if needed or direct pdf */}
                   <a 
-                    href={selectedApp.pdfUrl ? `http://localhost:5000${selectedApp.pdfUrl}` : '#'}
+                    href={selectedApp.pdfUrl ? `${FILE_BASE_URL}${selectedApp.pdfUrl}` : '#'}
                     className="btn btn-success" 
                     style={{ alignSelf: 'flex-start', fontSize: '0.85rem', padding: '8px 16px', gap: '6px', textDecoration: 'none' }}
                     target="_blank"

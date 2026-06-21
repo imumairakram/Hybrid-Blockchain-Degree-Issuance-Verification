@@ -1,5 +1,5 @@
 const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api`;
-
+export const FILE_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 const getHeaders = () => {
   const token = localStorage.getItem('token');
   const headers = {

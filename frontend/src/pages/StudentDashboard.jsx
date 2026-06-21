@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { api } from '../services/api';
+import { api, FILE_BASE_URL } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { 
   FileText, History, UploadCloud, CheckCircle2, Clock, XCircle, AlertCircle, FileCheck, Landmark, ShieldCheck 
@@ -427,7 +427,7 @@ export const StudentDashboard = () => {
                     {app.status === 'approved' && (
                       <div style={{ marginTop: '8px' }}>
                         <a 
-                          href={app.pdfUrl ? `http://localhost:5000${app.pdfUrl}` : '#'}
+                          href={app.pdfUrl ? `${FILE_BASE_URL}${app.pdfUrl}` : '#'}
                           className="btn btn-success" 
                           style={{ fontSize: '0.85rem', padding: '8px 16px', textDecoration: 'none' }}
                           target="_blank"
